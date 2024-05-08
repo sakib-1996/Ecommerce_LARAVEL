@@ -20,8 +20,7 @@
                                     </a>
 
                                     <div class="dropdown-menu dropdown-menu-end">
-                                        <h5 class="dropdown-item"><a
-                                                href="{{ route('userDashboard') }}">Dashboard</a></h5>
+                                        <h5 class="dropdown-item"><a href="{{ route('userDashboard') }}">Dashboard</a></h5>
                                         @if (auth()->user()->is_admin === 0)
                                             <a href="{{ route('logout') }}" class="dropdown-item">Logout</a>
                                         @endif
@@ -59,7 +58,8 @@
                             <div class="dropdown-menu">
                                 <ul>
                                     {{-- <li><a class="dropdown-item nav-link nav_item" href="#">About Us</a></li> --}}
-                                    <li><a class="dropdown-item nav-link nav_item" href="{{ route('contactPage') }}">Contact Us</a>
+                                    <li><a class="dropdown-item nav-link nav_item"
+                                            href="{{ route('contactPage') }}">Contact Us</a>
                                     </li>
                                 </ul>
                             </div>
@@ -99,13 +99,23 @@
                         </div>
                         <div class="search_overlay"></div>
                     </li>
-                    <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#"
-                            data-bs-toggle="dropdown"><i class="linearicons-cart"></i><span
-                                class="cart_count">2</span></a>
+
+                    <li class="dropdown cart_dropdown">
+                        <a class="nav-link cart_trigger" href="#" data-bs-toggle="dropdown">
+                            <i class="linearicons-cart"></i>
+                            <span class="cart_count">
+                                @isset($cartProducts)
+                                    {{ count($cartProducts) }}
+                                @else
+                                    0
+                                @endisset
+                            </span>
+
+                        </a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
                             <ul class="cart_list">
                                 @isset($cartProducts)
-                                    @foreach ($cartProducts as $cartProduct)
+                                    @foreach ($cartProducts as $index => $cartProduct)
                                         <?php
                                         $productQty = App\Models\ProductQty::where('product_id', $cartProduct->product_id)
                                             ->where('current_qty', '!=', 0)
@@ -114,23 +124,24 @@
                                         ?>
                                         <li>
                                             <a href="#" class="item_remove"><i class="ion-close"></i></a>
-                                            <a href="#"><img
-                                                    src="{{ asset('storage/' . $cartProduct->product->thum_img) }}"
-                                                    alt="cart_thumb1">{{ substr($cartProduct->product->title, 0, 15) }}..</a>
-                                            <span class="cart_quantity"> {{ $cartProduct->quantity }} x <span
-                                                    class="cart_amount">
+                                            <a href="#">
+                                                <img src="{{ asset('storage/' . $cartProduct->product->thum_img) }}"
+                                                    alt="cart_thumb1">
+                                                {{ substr($cartProduct->product->title, 0, 15) }}..
+                                            </a>
+                                            <span class="cart_quantity">
+                                                {{ $cartProduct->quantity }} x
+                                                <span class="cart_amount">
                                                     @isset($productQty)
-                                                        <span
-                                                            class="price_symbole">$</span></span>{{ $productQty->unit_price }}
-                                                @endisset
-
+                                                        <span class="price_symbole">$</span>{{ $productQty->unit_price }}
+                                                    @endisset
+                                                </span>
                                             </span>
                                         </li>
                                     @endforeach
                                 @endisset
                             </ul>
                             <div class="cart_footer">
-
                                 <p class="cart_buttons text-end">
                                     <a href="{{ route('viewCart') }}" class="btn btn-fill-line view-cart">View
                                         Cart</a>
@@ -138,6 +149,7 @@
                             </div>
                         </div>
                     </li>
+
                 </ul>
             </nav>
         </div>

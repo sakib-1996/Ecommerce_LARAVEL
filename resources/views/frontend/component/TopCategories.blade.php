@@ -17,7 +17,7 @@
                     <div class="p-2 col-2">
                         <div class="item">
                             <div class="categories_box">
-                                <a href="#">
+                                <a href="{{ route('productByCategory',$category->id) }}">
                                     <img src="{{ asset('storage/' . $category->cat_img) }}" alt="cat_img1" />
                                     <span>{{ $category->category_name }}</span>
                                 </a>
