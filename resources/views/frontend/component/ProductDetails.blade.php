@@ -242,8 +242,7 @@
 
                             <div class="tab-pane fade" id="Reviews" role="tabpanel" aria-labelledby="Reviews-tab">
                                 <div class="comments">
-                                    <h5 class="product_tab_title">{{ $reviews->count() ?? 0 }} Reviews for Blue Dress
-                                        for Women</span></h5>
+                                    <h5 class="product_tab_title">{{ $reviews->count() ?? 0 }} Reviews for this product</span></h5>
                                     <ul class="list_none comment_list mt-4">
                                         @isset($reviews)
                                             @foreach ($reviews as $review)
