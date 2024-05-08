@@ -1,0 +1,10 @@
+@extends('frontend.layouts.app')
+@section('content')
+    @include('frontend.component.MenuBar')
+    @include('frontend.component.HeroSlider')
+    @include('frontend.component.TopCategories')
+    @include('frontend.component.ExclusiveProducts')
+    @include('frontend.component.TopBrands')
+    @include('frontend.component.review')
+    @include('frontend.component.Footer')
+@endsection
